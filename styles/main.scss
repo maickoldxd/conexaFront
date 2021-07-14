@@ -1,0 +1,12 @@
+@import '../node_modules//bootstrap/scss/bootstrap.scss';
+@import './toastify.css';
+body{
+    background-color: #dedede;
+}
+.Toastify__toast--default {
+    color: black !important;
+}
+.pointer{
+    cursor: pointer;
+}
+

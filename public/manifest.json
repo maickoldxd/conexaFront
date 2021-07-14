@@ -1,0 +1,41 @@
+{
+    "name": "FRONT App",
+    "short_name": "Front",
+    "icons": [
+      {
+        "src": "/64.webp",
+        "sizes": "64x64",
+        "type": "image/webp",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/splash.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/128.webp",
+        "sizes": "128x128",
+        "type": "image/webp",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/256.webp",
+        "sizes": "256x256",
+        "type": "image/webp",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/512.webp",
+        "sizes": "512x512",
+        "type": "image/webp",
+        "purpose": "any maskable"
+      }
+    ],
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }
