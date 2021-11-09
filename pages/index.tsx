@@ -9,7 +9,7 @@ const Index = (): React.ReactElement => {
 
   return (
     <div className="d-flex flex-row justify-content-between flex-wrap">
-      <div className="card bg-light-2 mx-auto mt-5 rounded-top-8">
+      <div className="card bg-light-2 mx-auto mt-5 rounded-8">
         <Image
             quality={90}
           src={imgCard1}
@@ -23,7 +23,7 @@ const Index = (): React.ReactElement => {
           </a>
         </Link>
       </div>
-      <div className="card bg-light-2 mx-auto mt-5 rounded-top-8">
+      <div className="card bg-light-2 mx-auto mt-5 rounded-8">
       <Image
           quality={90}
           src={imgCard2}

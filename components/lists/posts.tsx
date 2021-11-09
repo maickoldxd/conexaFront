@@ -37,7 +37,7 @@ class PostsList extends React.PureComponent<PostsTypes> {
             id = all.id
         }
         return (
-            <div className="list-group-item list-group-item-action w-50 mx-auto" aria-current="true">
+            <div className="list-group-item list-group-item-action mx-auto" aria-current="true">
                 <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1"> {title}</h5>
                 <small>User: {userId}</small>

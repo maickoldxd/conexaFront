@@ -8,11 +8,11 @@ import useSWR from 'swr'
 
 const PostsPage = ({ data }: PostsOnDataTypes): React.ReactElement => {
 
-    const localData = useSWR(`${process.env.NEXT_PUBLIC_API}/api/list/posts`, fetcher,{fallbackData:data})
+    const localData = useSWR(`list/posts`, fetcher,{fallbackData:data})
 
     //KEY MUST BE A TRUE UNIQUE ID BECAUSE IN LARGE PROJECT A KEY BASED IN INDEX COULD BE REPEATED 
     return (
-        <div className="list-group mt-3 mb-3">
+        <div className="list-group mt-3 mb-3 col-11 col-sm-11 col-md-5 col-lg-5 col-xl-5 mx-auto">
             {
                 localData.data.map((item) => (
                     <Posts all={item} key={nanoid()} />

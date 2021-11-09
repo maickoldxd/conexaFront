@@ -85,7 +85,7 @@ const Login = (): React.ReactElement => {
 
 
     return (
-        <div className="card mx-auto w-25 p-3 mt-4 border-0 shadow-sm d-flex flex-column rounded-4" >
+        <div className="card mx-auto p-3 mt-4 border-0 shadow d-flex flex-column rounded-8 bg-light-2 col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" >
             <div className="card-body">
                 <h4 className="card-title">
                     Login

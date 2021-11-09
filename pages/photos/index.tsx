@@ -24,7 +24,7 @@ const PhotosPageIndex = ({ data }: PhotosOnDataTypes): React.ReactElement => {
     //KEY MUST BE A TRUE UNIQUE ID BECAUSE IN LARGE PROJECT A KEY BASED IN INDEX COULD BE REPEATED 
     return (
         <>
-        <div className="list-group mt-3 mb-3 mx-auto w-50 rounded-8">
+        <div className="list-group mt-3 mb-3 col-11 col-sm-11 col-md-6 col-lg-6 col-xl-6 mx-auto rounded-8">
             {
                 localData.data.map((photo) =>(
                     <Photos {...photo} key={nanoid()}/>
