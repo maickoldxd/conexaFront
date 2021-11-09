@@ -1,5 +1,6 @@
 [{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target" : { "namespace": "android_app", "package_name": "com.front.end",
-                   "sha256_cert_fingerprints": ["7B:1D:BD:9C:FD:74:65:84:D9:C2:89:C3:E9:7F:84:71:E3:6A:ED:F4:11:30:DB:57:FE:5D:D5:A3:F2:E4:AE:7F"] }
-    }]
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "app.vercel.conexa_front.twa",
+                     "sha256_cert_fingerprints": ["32:73:C8:92:14:D3:6D:76:9D:BA:77:2D:6B:F5:58:5D:56:F5:79:1A:CC:B6:EC:EE:49:EF:D2:C6:7C:7C:BE:88"] }
+      }
+]
