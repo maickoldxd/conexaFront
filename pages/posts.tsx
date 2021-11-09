@@ -27,7 +27,7 @@ export default PostsPage
 export const getStaticProps: GetStaticProps = async () => {
     const req = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/list/posts`, {
         headers: {
-            'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRldmVsb3BlciIsImFnZW50IjoiTW96aWxsYS81LjAgKFgxMTsgTGludXggeDg2XzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvOTUuMC40NjM4LjU0IFNhZmFyaS81MzcuMzYiLCJpcCI6IjEyNy4wLjAuMSIsImlhdCI6MTYzNjQzMTg1OSwiZXhwIjoxNjM3MDM2NjU5fQ.47LRtUiApKt03MkG-BykA_Zm0JMU-UlzcQkWBn--12s'
+            'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRldmVsb3BlciIsImFnZW50IjoiTW96aWxsYS81LjAgKFgxMTsgTGludXggeDg2XzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvOTUuMC40NjM4LjU0IFNhZmFyaS81MzcuMzYiLCJpcCI6IjEyNy4wLjAuMSIsImlhdCI6MTYzNjQ5Mjg2NCwiZXhwIjoxNjM3MDk3NjY0fQ.14wjbo9CY8VyjhaPX-4qH4xYZwMSIA0f02OvkDkXbmk'
             //I know this is not the best aproach, but in certain cases like this, there is no dynamic content base on user, so I hard setting a valid token
         }
     }).then(res => res.data)
