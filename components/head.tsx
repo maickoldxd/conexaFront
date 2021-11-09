@@ -24,7 +24,8 @@ const Head = ({title="FRONT"}:Props):React.ReactElement=>(
         <link rel='manifest' href='/manifest.json' />
 
         <link rel='shortcut icon' href='/favicon.ico' />
-        <link rel="stylesheet" href="/./toastify.css"/>
+        <link rel="stylesheet" href="/./css/toastify.css"/>
+        <link rel="stylesheet" href="/./css/bootstrap.css"/>
 
         <title>{title}</title>
 

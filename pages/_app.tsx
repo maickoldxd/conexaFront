@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app'
 import '../styles/main.scss'
-import 'bootstrap/dist/css/bootstrap.css'
 import React, { Fragment } from 'react'
 import Head from '@components/head'
 import Header from '@components/header'
