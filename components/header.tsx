@@ -1,13 +1,16 @@
 import React from 'react'
+import Link from 'next/link'
 
 class Header extends React.PureComponent {
-    render():React.ReactElement{
+    render(): React.ReactElement {
         return (
             <nav className="navbar bg-primary">
                 <div className="container-fluid">
-                    <a className="navbar-brand text-white" href="/./">
-                        FRONT
-                    </a>
+                    <Link href="/./">
+                        <a className="navbar-brand text-white" >
+                            FRONT
+                        </a>
+                    </Link>
                 </div>
             </nav>
         )

@@ -1,4 +1,4 @@
-@import '../node_modules//bootstrap/scss/bootstrap.scss';
+//@import '../node_modules//bootstrap/scss/bootstrap.scss';
 
 body{
     background-color: #dedede;
@@ -7,3 +7,14 @@ body{
     cursor: pointer;
 }
 
+.bg-light-2{
+   background-color: #dadada;
+}
+
+.rounded-top-8{
+    border-radius: 8px 8px 0 0 !important;
+}
+
+.rounded-8{
+    border-radius: 8px;
+}

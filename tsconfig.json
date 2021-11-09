@@ -20,7 +20,8 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["components/*"],
-      "@auth": ["utils/auth.js"]
+      "@auth": ["utils/auth.js"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": [

@@ -1,44 +1,46 @@
 import React from 'react'
+import Image from 'next/image'
 //FOR BETTER PERFOMANCE I USE PURE COMPONENT 
 
-type Props = {
+export type PhotosTypes = {
     albumId?: number,
-    id?:number,
-    title?:string,
-    url?:string,
-    thumbnailUrl?:string,
-    all?:{
-        albumId?: number,
-        id?:number,
-        title?:string,
-        url?:string,
-        thumbnailUrl?:string,
-    },
+    id?: number,
+    title?: string,
+    url?: string,
+    thumbnailUrl?: string,
+    b64?:string
 }
 
-class PhotosList extends React.PureComponent<Props> {
-    render():React.ReactElement{
+export type PhotosOnDataTypes = {
+    data: [
+        PhotosTypes
+    ],
+    page?: number
+}
+
+
+class PhotosList extends React.PureComponent<PhotosTypes> {
+    render(): React.ReactElement {
         //THERE ARE SOME PROPS UNNECESSARIES LIKE ID
-        let albumId = this.props.albumId
-        let title = this.props.title
-        let thumbnailUrl = this.props.thumbnailUrl
-        
-        //SOMETIMES IS MORE EFFICIENT PASS DIRECT ALL PROPS IN JUST A DIRECT OBJECT FROM THE RESPONSE
-        const all = this.props.all
-        
-        if (all) {
-            albumId = all.albumId
-            title = all.title
-            thumbnailUrl = all.thumbnailUrl
-        }
+        const {albumId, title,thumbnailUrl, b64} = this.props
+
         return (
             <div className="list-group-item list-group-item-action" aria-current="true">
-                <div className="d-flex w-100 flex-row">
-                    <img src={thumbnailUrl} alt={title} className="rounded-circle me-5"/>
+                <div className="d-flex flex-row">
+
+                    <div className="me-4">
+                        <Image
+                            src={thumbnailUrl}
+                            layout="fixed"
+                            width={150} height={"150"}
+                            placeholder="blur"
+                            blurDataURL={b64}
+                            className="rounded-circle" />
+                    </div>
                     <div className="d-flex flex-column mt-3 ">
-                        <h3 className="mb-1"> Album{albumId}</h3>
-                        <h5>{title}</h5>
-                    </div>                    
+                        <a className="h2 text-decoration-none text-dark"> Album{albumId}</a>
+                        <p>{title}</p>
+                    </div>
                 </div>
             </div>
         )

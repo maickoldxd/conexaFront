@@ -1,7 +1,7 @@
 import React from 'react'
 //FOR BETTER PERFOMANCE I USE PURE COMPONENT 
 
-type Props = {
+export type PostsTypes = {
     title?: string,
     userId?:string,
     body?:string,
@@ -11,10 +11,16 @@ type Props = {
         userId?:string,
         body?:string,
         id?:string,
-    },
+    }
+}
+//
+export type PostsOnDataTypes = {
+    data:[
+        PostsTypes
+    ]
 }
 
-class PostsList extends React.PureComponent<Props> {
+class PostsList extends React.PureComponent<PostsTypes> {
     render():React.ReactElement{
 
         let title = this.props.title
@@ -31,7 +37,7 @@ class PostsList extends React.PureComponent<Props> {
             id = all.id
         }
         return (
-            <div className="list-group-item list-group-item-action " aria-current="true">
+            <div className="list-group-item list-group-item-action w-50 mx-auto" aria-current="true">
                 <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1"> {title}</h5>
                 <small>User: {userId}</small>

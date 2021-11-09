@@ -1,49 +1,45 @@
 import React from 'react'
-import SWR from 'swr'
 import axios from 'axios'
-import Cookies from 'js-cookie'
-import Posts from '@components/lists/posts'
-//import { GetStaticPropsResult, GetStaticProps } from "next";
+import Posts, {PostsOnDataTypes} from '@components/lists/posts'
+import { GetStaticProps } from "next";
+import { nanoid } from 'nanoid'
+import fetcher from '@utils/client/fetcher'
+import useSWR from 'swr'
 
-//BECAUSE IT'S A DEV PROJECT AND I'M USING THE WILDCARD FOR CORS, THE BEARER TOKEN IS SET MANUAL, BUT IN PRODUCTION IT SHOULD BE NOT NEEDED
-const fetcher = url => axios(url,{headers:{authorization:Cookies.get("authorization")}}).then(res=>res.data)
+const PostsPage = ({ data }: PostsOnDataTypes): React.ReactElement => {
 
-const Index = ():React.ReactElement=>{
+    const localData = useSWR(`${process.env.NEXT_PUBLIC_API}/api/list/posts`, fetcher,{fallbackData:data})
 
-    const { data, error } = SWR(`${process.env.NEXT_PUBLIC_API}/api/list/posts`, fetcher)
-
-    if (error) {
-        //CAN BE ALSO A ERROR COMPONENT OR A REDIRECT TO A 500 ERROR
-        return (
-            <h3>Cargando...</h3>
-        )
-    }
-    if (!data){
-        //CAN BE ALSO A LOADING COMPONENT
-        return (
-            <h3>Cargando...</h3>
-        )
-    }
     //KEY MUST BE A TRUE UNIQUE ID BECAUSE IN LARGE PROJECT A KEY BASED IN INDEX COULD BE REPEATED 
     return (
         <div className="list-group mt-3 mb-3">
             {
-                data.map((item,i) =>(
-                    <Posts all={item} key={i}/>
+                localData.data.map((item) => (
+                    <Posts all={item} key={nanoid()} />
                 ))
             }
         </div>
     )
 }
 
-export default Index
+export default PostsPage
 
-//IN PRODUCTION IT WILL BE BETTER IF IT'S SERVER SIDE
-/**
- * export const getStaticProps: GetStaticProps = async () => {
- * const req = await fetch(...)
+export const getStaticProps: GetStaticProps = async () => {
+    const req = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/list/posts`, {
+        headers: {
+            'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRldmVsb3BlciIsImFnZW50IjoiTW96aWxsYS81LjAgKFgxMTsgTGludXggeDg2XzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvOTUuMC40NjM4LjU0IFNhZmFyaS81MzcuMzYiLCJpcCI6IjEyNy4wLjAuMSIsImlhdCI6MTYzNjQzMTg1OSwiZXhwIjoxNjM3MDM2NjU5fQ.47LRtUiApKt03MkG-BykA_Zm0JMU-UlzcQkWBn--12s'
+            //I know this is not the best aproach, but in certain cases like this, there is no dynamic content base on user, so I hard setting a valid token
+        }
+    }).then(res => res.data)
+    .catch(err => {
+        console.log(err)
+        return []
+    })
     return {
-      props: {data:req},
+        props: {
+            data: req
+        },
+        //NEXT JS NOW SUPPORT CONTENT REBUILDING, THIS PAGE WILL EXPIRE EVERY 60 SECONDS, AND WHEN A USER REQUEST THIS, IT WILL BE REBUILD, ALSO NEXT JS WILL SERVE PREVIOUS VERSION OF THIS, SO NO FALLBACK PAGE WILL EVER SHOW
+        revalidate: 60
     };
 };
- */

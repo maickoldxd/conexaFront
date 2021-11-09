@@ -1,12 +1,16 @@
-import React from 'react'
-const Index = ():React.ReactElement=>{
+import React, { Fragment } from 'react'
+import Index from './index'
+const offline = ():React.ReactElement=>{
   
   return (
-    <h1>
-        Ooops it looks like you are offline.
-    </h1>
+    <Fragment>
+      <h1 className="mx-auto w-75">
+        Parece que no tienes conexion a internet, podras navegar pero ten en cuenta que los datos no estaran actualizados
+      </h1>
+      <Index></Index>
+    </Fragment>
   )
 }
 
-export default Index
+export default offline
 

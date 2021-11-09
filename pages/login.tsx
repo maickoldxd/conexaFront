@@ -1,71 +1,108 @@
 import PasswordInput from '@components/forms/passwordInput'
 import TextInput from '@components/forms/textInput'
 import { toast } from 'react-toastify'
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
+import Joi from 'joi'
 import Cookie from 'js-cookie'
 import { useRouter } from 'next/router'
+import { GetStaticProps } from 'next'
 
-const Login = ():React.ReactElement=>{
+const Login = (): React.ReactElement => {
     const router = useRouter()
     //Inputs state for the form
-    const [form,setForm] = React.useState({username:"",password:""}),
-    [isInvalid,setInvalid] = React.useState({username:false,password:false})
+    const [form, setForm] = useState({
+        username: {
+            value: "",
+            error: false,
+        },
+        password: {
+            value: "",
+            error: false,
+        }
+    }),
+        [submitting, setSubmitting] = useState(false)
 
     //This arrow function is useful for handle all inputs in a form
-    const handleInputs = (key:string)=>({target:{value}})=>{
-        setForm({...form,[key]:value})
-        setInvalid({...isInvalid,[key]:false})
+    const handleInputs = (key: string, error?: boolean) => ({ target: { value } }) => {
+        setForm({
+            ...form, [key]: {
+                value: value,
+                error: error || false
+            }
+        })
     }
 
-    const inValid = (key,text)=>{
-        toast(`${key} ${text}`)
-        setInvalid({...isInvalid,[key]:true})
-    }
-
-    const send = e=>{
-        const {password,username} = form
+    const send = () => {
+        const { password, username } = form
         //Checking form before submitting
+        const ValidationSchema = Joi.object({
+            username: Joi.string()
+                .alphanum()
+                .min(3)
+                .max(30)
+                .required(),
+            password: Joi.string()
+                .alphanum()
+                .min(6)
+                .max(16)
+                .required()
+        })
+        const { error } = ValidationSchema.validate({
+            username: username.value,
+            password: password.value
+        })
+        //STOP SUBMITING
+        if (error) {
+            const locateInput = String(error.details[0].path[0])
 
-        //Username
-        if (username.length <= 3) return inValid("username","to short");
-        if (username.length >= 32) return inValid("username","to long");
-        if (typeof username !== 'string') return inValid("username","is not text");
-        //password
-        if (password.length <= 6) return inValid("password","to short");
-        if (password.length >= 16) return inValid("password","to long");
-        if (typeof password !== 'string') return inValid("password","is not text");
+            handleInputs(
+                locateInput,
+                true
+            )({ target: { value: form[locateInput].value } })
+        }
 
-        e.target.className= "btn btn-primary disabled"
+        setSubmitting(true)
 
-        axios.post(`${process.env.NEXT_PUBLIC_API}/api/auth/login`,form).then(res=>{
+        axios.post(`${process.env.NEXT_PUBLIC_API}/api/auth/login`, {
+            username: username.value,
+            password: password.value
+        }).then(res => {
             const msg = res.data.msg
             if (msg && msg != "ok") {
                 toast(msg)
-                e.target.className= "btn btn-primary"
+                setSubmitting(false)
                 return null
             }
             Cookie.set('authorization', res.data.token, { expires: 7 });
             router.push('/./')
-        })       
+        })
+            .catch(err => {
+                toast(err.message)
+                setSubmitting(false)
+            })
     }
 
 
-    return(
-        <form onSubmit={e=>e.preventDefault()} className="card translate-middle-x start-50 bg-light p-3 mt-4 border-0 shadow-sm col-lg-6 col-md-6 col-sm-12 col-12" noValidate>
+    return (
+        <div className="card mx-auto w-25 p-3 mt-4 border-0 shadow-sm d-flex flex-column rounded-4" >
             <div className="card-body">
                 <h4 className="card-title">
                     Login
                 </h4>
-                <TextInput id="Username" label="Username" placeholder="Type your username here" value={form.username} onChange={handleInputs("username")} isInvalid={isInvalid.username}/>
+                <TextInput id="Username" label="Username" placeholder="Type your username here" value={form.username.value} onChange={handleInputs("username")} isInvalid={form.username.error} />
 
-                <PasswordInput id="password" label="Password" placeholder="Type your password here" value={form.password} onChange={handleInputs("password")} isInvalid={isInvalid.password}/>
+                <PasswordInput id="password" label="Password" placeholder="Type your password here" value={form.password.value} onChange={handleInputs("password")} isInvalid={form.password.error} />
 
-                <input type="submit" onClick={send} className="btn btn-primary" value="Login"/>
+                <input type="submit" onClick={send} className={`btn btn-primary ${submitting && "disabled"}`} value="Login" />
 
             </div>
-        </form>
+        </div>
     )
 }
 
 export default Login
+
+export const getStaticProps: GetStaticProps = async () => ({
+    props: {},
+})
