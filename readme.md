@@ -24,6 +24,6 @@ Project created for get the best performance and easy to scale while keep archit
 
 ## notes:
 
-* Because it's a client-side website the authentication can be easily bypassed by a dev (This only apply to see components source, not for apy requests)
+* Because it's a client-side website the authentication can be easily bypassed by a dev (This only apply to see components source, not for api requests)
 
 * To get the best performance I recommend deploy on edge network like cloudflare pages, or vercel
